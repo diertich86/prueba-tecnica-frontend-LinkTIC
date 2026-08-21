@@ -1,0 +1,13 @@
+{
+  "extends": "./.quasar/tsconfig.json",
+  "include": ["./src/**/*", "./index.html", "./env.d.ts", "./.quasar/*.d.ts"],
+  "exclude": [
+    "./dist",
+    "./node_modules",
+    "./payment-app",
+    "./_payment-app-unused",
+    "./src-capacitor",
+    "./src-cordova",
+    "./quasar.config.*.temporary.compiled*"
+  ]
+}
