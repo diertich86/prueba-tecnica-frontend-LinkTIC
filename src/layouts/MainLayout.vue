@@ -14,6 +14,7 @@
             icon="logout"
             label="Cerrar sesión"
             aria-label="Cerrar sesión"
+            @click="confirmLogout"
           />
         </div>
       </q-toolbar>
@@ -34,6 +35,26 @@ import { useAuthStore } from '@/stores/auth.store';
 const authStore = useAuthStore();
 const router = useRouter();
 
+function confirmLogout() {
+  Dialog.create({
+    title: 'Confirmar cierre de sesión',
+    message: '¿Seguro que deseas cerrar la sesión actual?',
+    cancel: {
+      flat: true,
+      label: 'Cancelar',
+      color: 'grey-8',
+    },
+    ok: {
+      unelevated: true,
+      label: 'Cerrar sesión',
+      color: 'primary',
+    },
+    persistent: true,
+  }).onOk(() => {
+    authStore.logout();
+    void router.replace('/login');
+  });
+}
 </script>
 
 <style scoped>
