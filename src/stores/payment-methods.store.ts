@@ -23,6 +23,7 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
   const saving = ref(false);
   const errorMessage = ref<string | null>(null);
 
+  /** Aqui se carga el listado desde el mock aplicando los filtros */
   async function loadPaymentMethods(nextFilters?: PaymentMethodFilters): Promise<void> {
     if (nextFilters) {
       filters.value = { ...nextFilters };
@@ -43,6 +44,7 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
     }
   }
 
+  /** Crea un nuevo metodo de pago */
   async function create(payload: PaymentMethodPayload): Promise<boolean> {
     saving.value = true;
 
@@ -61,6 +63,7 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
     }
   }
 
+  /** Aqui se actualiza un metodo de pago */
   async function update(id: string, payload: PaymentMethodPayload): Promise<boolean> {
     saving.value = true;
 
@@ -79,6 +82,7 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
     }
   }
 
+  /** Se cambia el estado con actualizacion */
   async function setStatus(id: string, status: PaymentMethodStatus): Promise<boolean> {
     const previous = items.value.map((item) => ({ ...item }));
     const target = items.value.find((item) => item.id === id);
@@ -100,6 +104,7 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
     }
   }
 
+  /** Se elimina un metodo de pago */
   async function remove(id: string): Promise<boolean> {
     saving.value = true;
 
@@ -118,10 +123,6 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
     }
   }
 
-  function clearFilters(): void {
-    filters.value = {};
-  }
-
   return {
     items,
     filters,
@@ -133,6 +134,5 @@ export const usePaymentMethodsStore = defineStore('payment-methods', () => {
     update,
     setStatus,
     remove,
-    clearFilters,
   };
 });

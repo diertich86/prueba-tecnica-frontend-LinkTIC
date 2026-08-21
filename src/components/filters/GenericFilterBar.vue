@@ -105,6 +105,7 @@ function resetValues() {
   }
 }
 
+/** Se arma el objeto de filtros omitiendo vacíos */
 function buildOutput(): FilterValues {
   const output: FilterValues = {};
 
@@ -138,6 +139,7 @@ function emitChange() {
   emit('change', buildOutput());
 }
 
+/** Esto emite el cambio con debounce en texto e inmediato en los selectores */
 function onFieldChanged(field: FilterFieldConfig) {
   if (field.type === 'text') {
     clearTimer(field.key);

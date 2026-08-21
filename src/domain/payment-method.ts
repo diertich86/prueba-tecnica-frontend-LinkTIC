@@ -16,10 +16,12 @@ export const PAYMENT_METHOD_TYPE_OPTIONS = (
   Object.entries(PAYMENT_METHOD_TYPE_LABELS) as [PaymentMethodType, string][]
 ).map(([value, label]) => ({ value, label }));
 
+/** Esto devuelve la etiqueta legible del tipo de metodo de pago. */
 export function formatPaymentMethodType(type: PaymentMethodType): string {
   return PAYMENT_METHOD_TYPE_LABELS[type];
 }
 
+/** Formatea la fecha de creación para la UI. */
 export function formatCreatedAt(isoDate: string): string {
   const date = new Date(isoDate);
   if (Number.isNaN(date.getTime())) {
@@ -33,6 +35,7 @@ export function formatCreatedAt(isoDate: string): string {
   }).format(date);
 }
 
+/** Se normaliza el payload antes de enviarlo al servicio mock */
 export function normalizePaymentPayload(payload: PaymentMethodPayload): PaymentMethodPayload {
   const description = payload.description?.trim();
   const normalized: PaymentMethodPayload = {
@@ -51,6 +54,7 @@ export function normalizePaymentPayload(payload: PaymentMethodPayload): PaymentM
   return normalized;
 }
 
+/** Aqui se indica si ya existe un metodo con el mismo nombre */
 export function isDuplicateName(
   methods: PaymentMethod[],
   name: string,

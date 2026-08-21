@@ -23,6 +23,7 @@ export default defineRouter(() => {
     history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE),
   });
 
+  // Guard de navegación para proteger rutas si no hay sesión
   Router.beforeEach((to) => {
     const authStore = useAuthStore();
     const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);

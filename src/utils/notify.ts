@@ -1,5 +1,6 @@
 import { Notify } from 'quasar';
 
+/** Esto muestra un error global al usuario. */
 export function notifyError(message: string): void {
   Notify.create({
     type: 'negative',
@@ -8,6 +9,7 @@ export function notifyError(message: string): void {
   });
 }
 
+/** Aqui se muestra una notificación de exito. */
 export function notifySuccess(message: string): void {
   Notify.create({
     type: 'positive',
@@ -16,6 +18,7 @@ export function notifySuccess(message: string): void {
   });
 }
 
+/** Se muestra una advertencia. */
 export function notifyWarning(message: string): void {
   Notify.create({
     type: 'warning',

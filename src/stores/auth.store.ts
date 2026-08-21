@@ -47,6 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
     Math.max(0, MAX_FAILED_ATTEMPTS - failedAttempts.value),
   );
 
+  /** Aqui persiste el estado de bloqueo en sessionStorage. */
   function persistLockout(): void {
     writeLoginLockout({
       failedAttempts: failedAttempts.value,
@@ -54,18 +55,21 @@ export const useAuthStore = defineStore('auth', () => {
     });
   }
 
+  /** Se reinicia contadores de intentos fallidos. */
   function clearFailedAttempts(): void {
     failedAttempts.value = 0;
     lockedUntil.value = null;
     clearLoginLockout();
   }
 
+  /** Libera el bloqueo al vencer el tiempo. */
   function refreshLockoutState(): void {
     if (lockedUntil.value && lockedUntil.value <= Date.now()) {
       clearFailedAttempts();
     }
   }
 
+  /** Aqui registra fallo de login y aplica bloqueo al superar limite. */
   function registerFailedAttempt(): void {
     failedAttempts.value += 1;
 
@@ -85,6 +89,7 @@ export const useAuthStore = defineStore('auth', () => {
     );
   }
 
+  /** Valida al usuario contra el mock y guarda la sesion. */
   async function login(credentials: LoginCredentials): Promise<boolean> {
     refreshLockoutState();
 
@@ -119,6 +124,7 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  /** Aqui cierra sesion y limpia el almacenamiento local. */
   function logout(): void {
     user.value = null;
     token.value = null;

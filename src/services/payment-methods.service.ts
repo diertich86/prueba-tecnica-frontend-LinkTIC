@@ -15,8 +15,8 @@ export class PaymentMethodServiceError extends Error {
 }
 
 /**
- * Fuente única de datos mock para métodos de pago.
- * Simula latencia de red y reglas básicas de negocio.
+ * Esta es la fuente de datos mock para metodos de pago
+ * Se simula latencia y reglas básicas
  */
 let paymentMethodsDb: PaymentMethod[] = [
   {
@@ -60,10 +60,12 @@ let paymentMethodsDb: PaymentMethod[] = [
   },
 ];
 
+/** Esto evita mutaciones accidentales del arreglo */
 function cloneMethods(methods: PaymentMethod[]): PaymentMethod[] {
   return methods.map((method) => ({ ...method }));
 }
 
+/** Evalúa si un registro cumple los filtros recibidos. */
 function matchesFilters(method: PaymentMethod, filters: PaymentMethodFilters): boolean {
   if (filters.name) {
     const needle = filters.name.trim().toLowerCase();
@@ -83,6 +85,7 @@ function matchesFilters(method: PaymentMethod, filters: PaymentMethodFilters): b
   return true;
 }
 
+/** Se listan metodos de pago simulando latencia */
 export async function fetchPaymentMethods(
   filters: PaymentMethodFilters = {},
 ): Promise<PaymentMethod[]> {
@@ -95,6 +98,7 @@ export async function fetchPaymentMethods(
   return cloneMethods(filtered);
 }
 
+/** Insertamos un nuevo metodo de pago en el mock */
 export async function createPaymentMethod(payload: PaymentMethodPayload): Promise<PaymentMethod> {
   await delay(550);
 
@@ -126,6 +130,7 @@ export async function createPaymentMethod(payload: PaymentMethodPayload): Promis
   return { ...created };
 }
 
+/** Se actualiza un metodo de pago existente. */
 export async function updatePaymentMethod(
   id: string,
   payload: PaymentMethodPayload,
@@ -175,6 +180,7 @@ export async function updatePaymentMethod(
   return { ...updated };
 }
 
+/** Se activa o desactiva un metodo de pago */
 export async function togglePaymentMethodStatus(
   id: string,
   status: PaymentMethodStatus,
@@ -205,6 +211,7 @@ export async function togglePaymentMethodStatus(
   return { ...updated };
 }
 
+/** Eliminamos un metodo de pago del mock */
 export async function deletePaymentMethod(id: string): Promise<void> {
   await delay(450);
 

@@ -10,6 +10,7 @@ const DEFAULT_STATE: LoginLockoutState = {
   lockedUntil: null,
 };
 
+/** Aqui se lee el estado de bloqueo por intentos fallidos en login */
 export function readLoginLockout(): LoginLockoutState {
   try {
     const raw = sessionStorage.getItem(LOCKOUT_KEY);
@@ -31,10 +32,12 @@ export function readLoginLockout(): LoginLockoutState {
   }
 }
 
+/** Aqui se persiste el estado de bloqueo de login */
 export function writeLoginLockout(state: LoginLockoutState): void {
   sessionStorage.setItem(LOCKOUT_KEY, JSON.stringify(state));
 }
 
+/** Limpiamos el bloqueo de login. */
 export function clearLoginLockout(): void {
   sessionStorage.removeItem(LOCKOUT_KEY);
 }

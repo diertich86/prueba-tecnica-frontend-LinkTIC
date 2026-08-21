@@ -12,8 +12,8 @@ export class AuthServiceError extends Error {
 }
 
 /**
- * Mock de autenticación centralizado.
- * En producción este servicio llamaría a un endpoint HTTP real.
+ * Mock de autenticacion centralizado.
+ * Esto valida credenciales y retorna una sesion simulada.
  */
 export async function loginRequest(credentials: LoginCredentials): Promise<AuthSession> {
   await delay(450);
