@@ -23,5 +23,24 @@ export default defineRouter(() => {
     history: createHistory(import.meta.env.QUASAR_VUE_ROUTER_BASE),
   });
 
+  Router.beforeEach((to) => {
+    const authStore = useAuthStore();
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+    const guestOnly = to.matched.some((record) => record.meta.guestOnly);
+
+    if (requiresAuth && !authStore.isAuthenticated) {
+      return {
+        path: '/login',
+        query: { redirect: to.fullPath },
+      };
+    }
+
+    if (guestOnly && authStore.isAuthenticated) {
+      return { name: 'payment-methods' };
+    }
+
+    return true;
+  });
+
   return Router;
 });

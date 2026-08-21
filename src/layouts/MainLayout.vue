@@ -14,7 +14,6 @@
             icon="logout"
             label="Cerrar sesión"
             aria-label="Cerrar sesión"
-            @click="confirmLogout"
           />
         </div>
       </q-toolbar>
@@ -27,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+import { Dialog } from 'quasar';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth.store';
